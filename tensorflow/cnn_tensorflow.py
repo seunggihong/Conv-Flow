@@ -8,11 +8,20 @@ fashion_mnist = tf.keras.datasets.fashion_mnist
 
 x_train, x_test = x_train/255.0, x_test/255.0
 
-model = models.Sequential()
-model.add(layers.Flatten(input_shape=(28, 28)))
-model.add(layers.Dense(128, activation='relu'))
-model.add(layers.Dropout(.2))
-model.add(layers.Dense(10, activation='softmax'))
+model = models.Sequential(
+    [
+        layers.Conv2D(filters=32, kernel_size=(3, 3),
+                      input_shape=(28, 28, 1), activation='relu'),
+        layers.MaxPool2D(pool_size=(2, 2)),
+        layers.Conv2D(filters=64, kernel_size=(3, 3), activation='relu'),
+        layers.MaxPool2D(pool_size=(2, 2)),
+        layers.Conv2D(filters=128, kernel_size=(3, 3), activation='relu'),
+        layers.MaxPool2D(pool_size=(2, 2)),
+        layers.Flatten(),
+        layers.Dense(64, activation='relu'),
+        layers.Dense(10, activation='softmax')
+    ]
+)
 
 model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy', metrics=['accuracy'])
