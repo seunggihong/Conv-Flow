@@ -3,6 +3,7 @@ from tensorflow.keras import models, layers
 import mlflow
 
 # test mac branch
+# test local Desktop
 fashion_mnist = tf.keras.datasets.fashion_mnist
 (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
 
