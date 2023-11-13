@@ -10,16 +10,24 @@ cfg = {
 
 
 class VGGnet(Model):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, input=None):
+        super().__init__()
 
     def create_nets(self, config):
         nets = []
         for i in config:
             if i == 'M':
                 nets.append(layers.MaxPool2D())
-            nets.append(layers.Conv2D())
+                continue
+            nets.append(layers.Conv2D(
+                i, kernel_size=(3, 3), activation='relu'))
             nets.append(layers.BatchNormalization())
             nets.append(layers.ReLU())
 
         return Sequential(nets)
+
+
+if __name__ == "__main__":
+    vgg = VGGnet()
+    vgg.create_nets(cfg['A'])
+    vgg.summary()
