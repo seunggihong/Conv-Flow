@@ -1,0 +1,9 @@
+name: package_test
+python_env: python_env.yaml
+
+entry_points:
+  main:
+    parameters:
+      batch_size: { type: int, default: 100 }
+      epochs: { type: int, default: 1000 }
+    command: "python train.py --batch-size={batch_size} --epochs={epochs}"
